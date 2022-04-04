@@ -43,7 +43,10 @@ router.get('/api/travellers/:id', async (req, res) => {
   try {
     const travellerData = await Traveller.findByPk(req.params.id, {
       include: [{
-        model: Location, through: Trip
+        model: Location, 
+        through:{
+          attributes: []
+        }
       }]
     });
     if (!travellerData) {
@@ -122,9 +125,8 @@ router.get('/api/locations/:id', async (req, res) => {
     const locationData = await Location.findByPk(req.params.id, {
       include: [{
         model: Traveller, 
-        through: Trip, 
-        attributes: {
-          exclude: ['trip']
+        through: {
+          attributes: []
         }
       }]
     });
